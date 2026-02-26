@@ -1,0 +1,23 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Build artifacts
+build/
+dist/
+wheels/
+*.egg-info/
+
+# Environment variables
+.env
+
+# OS junk
+.DS_Store
+
+# Generated outputs
+data/evaluation_report.json
+data/debug/

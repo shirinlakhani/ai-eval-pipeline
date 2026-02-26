@@ -1,0 +1,22 @@
+[
+  {
+    "id": "baseline_poor",
+    "code": "def add(a,b):\n  return a+b",
+    "description": "Functional but zero standards. Should fail miserably."
+  },
+  {
+    "id": "resource_leak",
+    "code": "def save_log(msg):\n    f = open('log.txt', 'a')\n    f.write(msg + '\\n')\n    # Forgot to close the file!",
+    "description": "Missing context manager and error handling. Testing 'Safety'."
+  },
+  {
+    "id": "untyped_but_clean",
+    "code": "def calculate_area(radius):\n    import math\n    if radius < 0:\n        return None\n    return math.pi * radius ** 2",
+    "description": "Logic is fine, but missing type hints and docstrings. Testing 'Documentation'."
+  },
+  {
+    "id": "subtle_bug",
+    "code": "def get_user_status(users, user_id):\n    return users[user_id]\n    # What if user_id is missing?",
+    "description": "Missing bounds checking/KeyError handling. Testing 'Correctness'."
+  }
+]

@@ -1,0 +1,68 @@
+The provided code is a Python script that extracts text from PDF files located in a specified input directory and saves the extracted text as plain text files in an output directory. It uses the `pdfplumber` library to handle the PDF parsing. Below is a breakdown of the code and its functionality:
+
+### Code Breakdown
+
+1. **Imports**:
+   - `os`: Used for directory and file path manipulations.
+   - `pdfplumber`: A library for extracting text and data from PDF files.
+
+2. **Function Definition**:
+   - `extract_text_from_pdf(input_dir: str, output_dir: str)`: This function takes two arguments:
+     - `input_dir`: The directory containing the PDF files to be processed.
+     - `output_dir`: The directory where the extracted text files will be saved.
+
+3. **Directory Creation**:
+   - `os.makedirs(output_dir, exist_ok=True)`: This line creates the output directory if it does not already exist.
+
+4. **Processing PDF Files**:
+   - The function iterates over all files in the `input_dir`:
+     - It checks if the file has a `.pdf` extension.
+     - If it does, it constructs the full file path and opens the PDF using `pdfplumber`.
+     - It extracts text from each page of the PDF and joins the text from all pages into a single string.
+     - It cleans up the extracted text by removing extra whitespace and empty lines.
+
+5. **Saving Extracted Text**:
+   - The cleaned text is saved to a new file in the `output_dir`, with the same name as the original PDF but with a `.txt` extension.
+   - A message is printed to the console indicating that the file has been processed.
+
+6. **Main Execution Block**:
+   - The script defines a `BASE_DIR` that points to a `data` directory two levels up from the current script's location.
+   - It calls the `extract_text_from_pdf` function with paths to the input and output directories.
+
+### Usage
+
+To use this script, ensure you have the `pdfplumber` library installed. You can install it using pip:
+
+```bash
+pip install pdfplumber
+```
+
+### Example Directory Structure
+
+Assuming the script is located in `src/ingestion/pdf_parser.py`, the expected directory structure would look like this:
+
+```
+project_root/
+│
+├── data/
+│   ├── raw/
+│   │   └── pdfs/
+│   │       ├── document1.pdf
+│   │       └── document2.pdf
+│   └── processed/
+│       └── pdfs/
+│           └── (extracted text files will be saved here)
+└── src/
+    └── ingestion/
+        └── pdf_parser.py
+```
+
+### Running the Script
+
+You can run the script from the command line:
+
+```bash
+python src/ingestion/pdf_parser.py
+```
+
+This will process all PDF files in the `data/raw/pdfs` directory and save the extracted text files in the `data/processed/pdfs` directory.

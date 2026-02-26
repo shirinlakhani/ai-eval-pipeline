@@ -1,0 +1,71 @@
+The provided code is a Python script that extracts text from PDF files located in a specified input directory and saves the extracted text as plain text files in an output directory. Below is a breakdown of the code, its functionality, and some potential improvements.
+
+### Code Breakdown
+
+1. **Imports**:
+   - `os`: Used for directory and file path manipulations.
+   - `pdfplumber`: A library for extracting text from PDF files.
+
+2. **Function `extract_text_from_pdf`**:
+   - **Parameters**:
+     - `input_dir`: Directory containing the PDF files to be processed.
+     - `output_dir`: Directory where the extracted text files will be saved.
+   - **Functionality**:
+     - Creates the output directory if it doesn't exist.
+     - Iterates through all files in the input directory.
+     - For each PDF file, it opens the file using `pdfplumber`, extracts text from each page, and joins the text into a single string.
+     - Cleans up the extracted text by removing extra whitespace.
+     - Saves the cleaned text to a new file with the same name as the PDF but with a `.txt` extension.
+     - Prints a message indicating the processed file.
+
+3. **Main Execution Block**:
+   - Defines a base directory that is two levels up from the current script's directory.
+   - Calls the `extract_text_from_pdf` function with paths to the input and output directories.
+
+### Potential Improvements
+
+1. **Error Handling**:
+   - Add error handling for file operations (e.g., opening files, writing files) to gracefully handle issues like permission errors or corrupted PDF files.
+
+2. **Logging**:
+   - Instead of using `print` statements, consider using the `logging` module for better control over logging levels and outputs.
+
+3. **Support for Subdirectories**:
+   - If the input directory contains subdirectories, you might want to recursively process PDFs in those subdirectories.
+
+4. **Text Extraction Quality**:
+   - Depending on the quality of the PDFs, you might want to implement additional text extraction techniques or libraries to improve the accuracy of the extracted text.
+
+5. **Command-Line Arguments**:
+   - Allow users to specify input and output directories via command-line arguments for more flexibility.
+
+6. **Unit Tests**:
+   - Implement unit tests to ensure the functionality works as expected, especially for edge cases like empty PDFs or PDFs with no extractable text.
+
+### Example of Improved Error Handling
+
+Here’s an example of how you might add error handling to the text extraction process:
+
+```python
+def extract_text_from_pdf(input_dir: str, output_dir: str):
+    os.makedirs(output_dir, exist_ok=True)
+
+    for filename in os.listdir(input_dir):
+        if filename.endswith(".pdf"):
+            file_path = os.path.join(input_dir, filename)
+            try:
+                with pdfplumber.open(file_path) as pdf:
+                    text = "\n".join([page.extract_text() or "" for page in pdf.pages])
+
+                text = "\n".join([line.strip() for line in text.splitlines() if line.strip()])
+
+                output_file = os.path.join(output_dir, filename.replace(".pdf", ".txt"))
+                with open(output_file, "w", encoding="utf-8") as f:
+                    f.write(text)
+
+                print(f"[PDF] Processed: {output_file}")
+            except Exception as e:
+                print(f"❌ Error processing {file_path}: {e}")
+```
+
+This modification will catch and report errors that occur during the PDF processing, allowing the script to continue processing other files even if one fails.
