@@ -1,23 +1,49 @@
+# =========================
 # Python bytecode
+# =========================
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 
+# =========================
 # Virtual environments
+# =========================
 .venv/
 venv/
-
+# =========================
 # Build artifacts
+# =========================
 build/
 dist/
 wheels/
 *.egg-info/
 
-# Environment variables
+# =========================
+# Environment variables / secrets
+# =========================
 .env
 
+# =========================
 # OS junk
+# =========================
 .DS_Store
-
-# Generated outputs
+Thumbs.db
+# =========================
+# Generated outputs / debug files
+# =========================
 data/evaluation_report.json
-data/debug/
+data/debug_*.txt
+
+# =========================
+# IDE / editor settings
+# =========================
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# Optional
+# =========================
+.python-version
+uv.lock
